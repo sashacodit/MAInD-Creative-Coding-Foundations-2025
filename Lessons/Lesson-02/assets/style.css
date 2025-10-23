@@ -32,24 +32,12 @@ header {
     background-color: #cbb64c
 }
 
-#myFlexbox {
-    display: flex;
-    flex-wrap: wrap;
-}
 
-#myFlexbox div{
-    background-color: yellow;
-    padding: 1rem;
-
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
-.box {
+#aside{
     background-color: yellow;
     
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: space-around;
 
     width: 40%;
@@ -58,26 +46,45 @@ header {
     margin: 1rem;
 }
 
-@media only screen and (min-width: 600px) {
+.content {
+    background-color: yellow;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 40%;
+    height: 80px;
+    padding: auto;
+    margin: 1rem;
+}
+
+@media only screen and (min-width: 480px) {
 
 	/* CSS Selectors and related style */
-body {
-    background-color: yellow;
-}
+
 .box {
     width: 25%;
 }
 
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 780px) {
 
 	/* CSS Selectors and related style */
-body {
-    background-color: green;
-}
+
 .box {
     width:40%;
+}
+
+}
+
+@media only screen and (min-width: 1080px) {
+
+	/* CSS Selectors and related style */
+
+.box {
+    width:60%;
 }
 
 }
