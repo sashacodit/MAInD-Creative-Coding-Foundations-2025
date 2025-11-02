@@ -1,16 +1,84 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -26,9 +94,9 @@ html {
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 h1 {
@@ -82,9 +150,7 @@ button {
     width: 50%;
 }
 
-/*to-do list*/
 
-/*card-view*/
 
 .card-view {
     display: flex;
@@ -97,8 +163,32 @@ li {
     width: 100%;
 }
 
-.card-view li {
-    background-color: orange;
+li p {
+    width: 100%;
+    font-size: 14px;
+}
+#task-list-container {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 16px;
+    padding: 0;
+}
+
+.list-element-container {
+    border-radius: 12px;
+    border: 1px solid #DEE4EC;
+    background: #D2E0FB;
+    display: flex;
+    width: auto;
+    padding: 16px;
+    align-items: center;
+    gap: 10px;
+}
+
+/* .list-element {
+    background-color: #D2E0FB;
     height: 3rem;
     border: 1px solid black;
     border-radius: 1rem;
@@ -106,7 +196,7 @@ li {
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-}
+} */
 
 /*list-view*/
 
@@ -163,6 +253,7 @@ button:hover {
     padding: 0.2rem;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 .switch-option {
@@ -191,7 +282,64 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem 2rem;
+    margin: 1rem 1rem;
 }
 
 
+.delete-btn {
+    background: none;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
+
+.delete-btn:hover img {
+    content: url("imgs/Trashbin-Hover-New.svg");
+}
+
+.delete-btn:active img {
+    content: url("imgs/Trashbin-Pressed-New.svg");
+}
+
+.delete-btn::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+    /* Creates an invisible 16px larger touch target */
+}
+
+.paint-btn{
+    background: none;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
+
+.paint-btn:hover img {
+    content: url("imgs/Paint-Hover.svg");
+}
+
+.paint-btn:active img {
+    content: url("imgs/Paint-Pressed.svg");
+}
+
+.paint-btn::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+    /* Creates an invisible 16px larger touch target */
+}

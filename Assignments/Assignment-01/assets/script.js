@@ -9,24 +9,29 @@ const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list-container');
 
 listButton.addEventListener('click', () => {
-    console.log ('List button pressed!');
+    console.log('List button pressed!');
 
-    taskList.classList.remove('card-view');
-    taskList.classList.add('list-view');
-
+    taskList.classList.remove('list-view');
+    taskList.classList.add('card-view');
     listButton.classList.add('active');
     cardButton.classList.remove('active');
+
 
 })
 
 
 cardButton.addEventListener('click', () => {
-    console.log ('Card button pressed!');
+    console.log('Card button pressed!');
 
-    taskList.classList.remove('list-view');
-    taskList.classList.add('card-view');
+
+    taskList.classList.remove('card-view');
+    taskList.classList.add('list-view');
+
+
     cardButton.classList.add('active');
     listButton.classList.remove('active');
+
+
 
 })
 
@@ -38,4 +43,4 @@ addButton.addEventListener('click', () => {
     taskList.appendChild(listElement);
     taskInput.value = '';
 
-    })
+})
