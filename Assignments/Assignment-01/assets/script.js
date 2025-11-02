@@ -36,10 +36,36 @@ cardButton.addEventListener('click', () => {
 })
 
 addButton.addEventListener('click', () => {
+    if (taskInput.value === '') {
+        alert('Please enter a task before adding.');
+        return;
+    }
+
     console.log('Add button pressed!');
     const inputValue = taskInput.value;
     const listElement = document.createElement('li');
-    listElement.innerHTML = inputValue;
+    listElement.className = 'list-element-container';
+    listElement.innerHTML = `
+        <p>${inputValue}</p>
+        <button class="paint-btn">
+            <img src="assets/imgs/Paint.svg" alt="small fill icon">
+        </button>
+        <button class="delete-btn">
+            <img src="assets/imgs/Trashbin.svg" alt="small trashbin icon">
+        </button>
+    `;
+
+
+    const deleteButton = listElement.querySelector('.delete-btn');
+    deleteButton.addEventListener('click', () => {
+        taskList.removeChild(listElement);
+    });
+
+    // const paintButton = listElement.querySelector('.paint-btn');
+    // paintButton.addEventListener('click', () => {
+    //     listElement.style.backgroundColor = '#FFD700'; // Change to desired color
+    // });
+
     taskList.appendChild(listElement);
     taskInput.value = '';
 
