@@ -155,6 +155,16 @@ h1 {
     font-size: 14px;
 }
 
+#task-input:hover {
+    width: 100%;
+    border: 1px solid #4335FE;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #EEF2FE;
+    color: #27272A;
+    font-size: 14px;
+}
+
 
 
 /*view list mode toggle*/
