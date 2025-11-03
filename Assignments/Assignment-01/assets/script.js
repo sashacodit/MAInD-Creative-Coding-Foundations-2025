@@ -61,12 +61,66 @@ addButton.addEventListener('click', () => {
         taskList.removeChild(listElement);
     });
 
-    // const paintButton = listElement.querySelector('.paint-btn');
-    // paintButton.addEventListener('click', () => {
-    //     listElement.style.backgroundColor = '#FFD700'; // Change to desired color
-    // });
+    const paintButton = listElement.querySelector('.paint-btn');
+    paintButton.innerHTML +=  `<div class="color-tooltip">
+                        <div class="color-option color-blue" data-color="#D2E0FB"></div>
+                        <div class="color-option color-green" data-color="#D2FBD5"></div>
+                        <div class="color-option color-yellow" data-color="#FBF6D2"></div>
+                        <div class="color-option color-pink" data-color="#FBD2F3"></div>
+                    </div>`;
+
+
+    // Get the tooltip reference AFTER adding it to the DOM
+    const tooltip = paintButton.querySelector('.color-tooltip');
+
+    paintButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tooltip.classList.toggle('show');
+    });
+
+    // Hide tooltip when clicking outside
+    document.addEventListener('click', () => {
+        tooltip.classList.remove('show');
+    });
+
+    // Handle color selection
+    paintButton.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const color = option.dataset.color;
+            listElement.style.backgroundColor = color;
+            tooltip.classList.remove('show');
+        });
+    });
+
+
 
     taskList.appendChild(listElement);
     taskInput.value = '';
 
 })
+
+// document.querySelectorAll('.paint-btn').forEach(btn => {
+//     const tooltip = btn.querySelector('.color-tooltip');
+    
+//     btn.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         tooltip.classList.toggle('show');
+//     });
+
+//     // Hide tooltip when clicking outside
+//     document.addEventListener('click', () => {
+//         tooltip.classList.remove('show');
+//     });
+
+//     // Handle color selection
+//     btn.querySelectorAll('.color-option').forEach(option => {
+//         option.addEventListener('click', (e) => {
+//             e.stopPropagation();
+//             const color = option.dataset.color;
+//             const listItem = btn.closest('.list-element-container');
+//             listItem.style.backgroundColor = color;
+//             tooltip.classList.remove('show');
+//         });
+//     });
+// });

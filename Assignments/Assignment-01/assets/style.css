@@ -103,25 +103,11 @@ h1 {
     font-size: 24px;
     text-align: center;
     margin: 24px 16px;
+    color: #262626;
+    font-weight: 900;
 }
 
-input,
-button {
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    color: inherit;
-    outline: none;
-    box-sizing: border-box;
-}
 
-button {
-    border: 1px solid black;
-    padding: 1rem;
-    border-radius: 1rem;
-}
 
 /*input and add button*/
 
@@ -131,26 +117,47 @@ button {
     margin: 24px 16px;
 }
 
+#add-btn {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    background: linear-gradient(180deg, #5a6bff 0%, #1e32ff 100%);
+    border: 1px solid transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+#add-btn:hover {
+    background: linear-gradient(153deg, #4234FF 4.38%, #7E72FF 81.13%);
+    border: 1px solid transparent;
+    border-image:  linear-gradient(138deg, rgba(255, 255, 255, 0.00) 29.23%, rgba(255, 255, 255, 0.30) 71.35%);
+    transition: all 0.3s ease;
+}
+
+#add-btn:active {
+    background: linear-gradient(153deg, #3726F5 4.38%, #2A1EC3 81.13%);
+    color: #EFEEEE;
+    border-image: 1px solid rgba(110, 110, 110, 0.30);
+}
+
 #task-input {
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid #D6DDE7;
     padding: 1rem;
     border-radius: 1rem;
+    background-color: #EAECF3;
+    color: #27272A;
+    font-size: 14px;
 }
+
+
 
 /*view list mode toggle*/
-
-#view-toggle-container {
-    display: flex;
-    gap: 1rem;
-}
-
-.toggle-btn {
-    background-color: whitesmoke;
-    width: 50%;
-}
-
-
 
 .card-view {
     display: flex;
@@ -166,9 +173,11 @@ li {
 li p {
     width: 100%;
     font-size: 14px;
+    color: #262626;
 }
+
 #task-list-container {
-    
+
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -217,27 +226,6 @@ li p {
 
 /*general button rules*/
 
-button:hover {
-    cursor: pointer;
-}
-
-.toggle-btn:hover {
-    background-color: royalblue;
-}
-
-.toggle-btn:active {
-    background-color: mediumblue;
-    color: white;
-}
-
-#add-btn:hover {
-    background-color: darkorange;
-}
-
-#add-btn:active {
-    background-color: orangered;
-    color: white;
-}
 
 
 
@@ -270,7 +258,6 @@ button:hover {
 
 .switch-option.active {
     background-color: #D6DDE7;
-    /* selected background color */
 }
 
 .switch-option:not(.active):hover {
@@ -283,6 +270,9 @@ section {
     justify-content: space-between;
     align-items: center;
     margin: 1rem 1rem;
+    color: #27272A;
+    font-style: extra-bold;
+    font-weight: 700;
 }
 
 
@@ -312,10 +302,9 @@ section {
     right: -8px;
     bottom: -8px;
     left: -8px;
-    /* Creates an invisible 16px larger touch target */
 }
 
-.paint-btn{
+.paint-btn {
     background: none;
     border: none;
     padding: 0px;
@@ -341,5 +330,43 @@ section {
     right: -8px;
     bottom: -8px;
     left: -8px;
-    /* Creates an invisible 16px larger touch target */
 }
+
+.color-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #DEE4EC;
+    border-radius: 8px;
+    padding: 8px;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.color-tooltip.show {
+    display: flex;
+    gap: 8px;
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #DEE4EC;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: #5a6bff;
+}
+
+/* Color options */
+.color-blue { background-color: #D2E0FB; }
+.color-green { background-color: #D2FBD5; }
+.color-yellow { background-color: #FBF6D2; }
+.color-pink { background-color: #FBD2F3; }
