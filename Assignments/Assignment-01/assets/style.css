@@ -173,6 +173,7 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     padding-left: 0;
+
 }
 
 li {
@@ -186,14 +187,11 @@ li p {
     color: #262626;
 }
 
-#task-list-container {
+/* #task-list-container {
 
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin: 16px;
-    padding: 0;
-}
+   
+} */
+
 
 .list-element-container {
     border-radius: 12px;
@@ -219,18 +217,9 @@ li p {
 
 /*list-view*/
 
-.list-view {
-    border: 1px solid black;
-    border-radius: 1rem;
-    padding: 1rem 1rem 1rem 2rem;
-    background-color: orange;
-    list-style-type: disc;
-}
 
-.list-view li {
-    height: 2rem;
-    display: list-item;
-}
+
+
 
 /*buttons*/
 
@@ -380,3 +369,41 @@ section {
 .color-green { background-color: #D2FBD5; }
 .color-yellow { background-color: #FBF6D2; }
 .color-pink { background-color: #FBD2F3; }
+
+
+
+.list-view-new {
+     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 16px;
+    padding: 0;
+}
+.card-view-new {
+display: grid;
+height: 100%;
+row-gap: 8px;
+column-gap: 8px;
+align-self: stretch;
+grid-template-rows: repeat(3, minmax(0, 1fr));
+grid-template-columns: repeat(2, minmax(0, 1fr));
+margin: 0 1rem;
+}
+
+.card-view-new li{
+    height: 160px;
+    text-align: center;
+    gap: 0.5rem;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icons-btn-container{
+    gap: 0,5rem;
+    display: flex;
+    flex-direction: row;
+    
+}
+.card-view-new li .icons-btn-container{
+   
+}

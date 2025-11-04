@@ -11,8 +11,8 @@ const taskList = document.getElementById('task-list-container');
 listButton.addEventListener('click', () => {
     console.log('List button pressed!');
 
-    taskList.classList.remove('list-view');
-    taskList.classList.add('card-view');
+    taskList.classList.add('list-view-new');
+    taskList.classList.remove('card-view-new');
     listButton.classList.add('active');
     cardButton.classList.remove('active');
 
@@ -24,8 +24,8 @@ cardButton.addEventListener('click', () => {
     console.log('Card button pressed!');
 
 
-    taskList.classList.remove('card-view');
-    taskList.classList.add('list-view');
+    taskList.classList.add('card-view-new');
+    taskList.classList.remove('list-view-new');
 
 
     cardButton.classList.add('active');
