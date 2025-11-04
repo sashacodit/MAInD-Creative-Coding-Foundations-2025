@@ -47,12 +47,15 @@ addButton.addEventListener('click', () => {
     listElement.className = 'list-element-container';
     listElement.innerHTML = `
         <p>${inputValue}</p>
-        <button class="paint-btn">
-            <img src="assets/imgs/Paint.svg" alt="small fill icon">
-        </button>
-        <button class="delete-btn">
-            <img src="assets/imgs/Trashbin.svg" alt="small trashbin icon">
-        </button>
+        <div class="icons-btn-container">
+                <button class="paint-btn">
+                    <img src="assets/imgs/Paint.svg" alt="Paint">
+                   
+                </button>
+                <button class="delete-btn">
+                    <img src="assets/imgs/Trashbin.svg" alt="small trashbin icon">
+                </button>
+        </div>
     `;
 
 

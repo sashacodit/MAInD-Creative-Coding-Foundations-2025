@@ -391,19 +391,26 @@ margin: 0 1rem;
 }
 
 .card-view-new li{
-    height: 160px;
+    height: 128px;
     text-align: center;
     gap: 0.5rem;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
-
+.card-view-new li p{
+   flex-grow: 2;
+   align-content: center;
+   overflow: scroll;
+}
 .icons-btn-container{
-    gap: 0,5rem;
+    gap: 0.5rem;
     display: flex;
-    flex-direction: row;
-    
+    flex-direction: row
 }
 .card-view-new li .icons-btn-container{
-   
+   /* align-self: flex-end;*/
+    /* position: relative; */
+    /* bottom: 100%;
+    left: 50%; */
+   /* position: relative; */
 }
