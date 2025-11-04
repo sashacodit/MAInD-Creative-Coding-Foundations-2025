@@ -107,6 +107,10 @@ h1 {
     font-weight: 900;
 }
 
+.title img {
+    vertical-align: middle;
+}
+
 
 
 /*input and add button*/
@@ -148,7 +152,7 @@ h1 {
 #task-input {
     width: 100%;
     border: 1px solid #D6DDE7;
-    padding: 1rem;
+    padding: 0.8rem;
     border-radius: 0.7rem;
     background-color: #EAECF3;
     color: #27272A;
@@ -158,7 +162,7 @@ h1 {
 #task-input:hover {
     width: 100%;
     border: 1px solid #4335FE;
-    padding: 1rem;
+    padding: 0.8rem;
     border-radius: 0.7rem;
     background-color: #EEF2FE;
     color: #27272A;
@@ -233,7 +237,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem 1rem;
+    margin: 0.4rem 1rem;
     color: #27272A;
     font-style: extra-bold;
     font-weight: 700;
@@ -343,6 +347,7 @@ section {
     gap: 0.5rem;
     margin: 16px;
     padding: 0;
+    margin: 0.5rem 1rem;
 }
 
 .card-view-new {
@@ -353,7 +358,7 @@ column-gap: 8px;
 align-self: stretch;
 grid-template-rows: repeat(3, minmax(0, 1fr));
 grid-template-columns: repeat(2, minmax(0, 1fr));
-margin: 0 1rem;
+margin: 0.5rem 1rem;
 }
 
 .card-view-new li{
@@ -382,7 +387,64 @@ margin: 0 1rem;
     .card-view-new {
         grid-template-rows: repeat(3, minmax(0, 1fr));
         grid-template-columns: repeat(3, minmax(0, 1fr));
+        
     }
+
+    #add-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 24px 16px;
+}
+
+    #task-input {
+    width: 40%;
+    border: 1px solid #D6DDE7;
+    padding: 0.8rem;
+    border-radius: 0.7rem;
+    background-color: #EAECF3;
+    color: #27272A;
+    font-size: 14px;
+}
+
+#task-input:hover {
+    width: 40%;
+    border: 1px solid #4335FE;
+    padding: 0.8rem;
+    border-radius: 0.7rem;
+    background-color: #EEF2FE;
+    color: #27272A;
+    font-size: 14px;
+}
+
+section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.4rem 1rem;
+    color: #27272A;
+    font-style: extra-bold;
+    font-weight: 700;
+}
+
+.list-view-new {
+     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.5rem 1rem;
+    padding: 0;
+}
+
+.card-view-new {
+display: grid;
+height: 100%;
+row-gap: 8px;
+column-gap: 8px;
+align-self: stretch;
+grid-template-rows: repeat(3, minmax(0, 1fr));
+grid-template-columns: repeat(3, minmax(0, 1fr));
+margin: 0.5rem 1rem;
+}
 }
 
 /* --- CSS rules for desktop --- */
@@ -391,4 +453,32 @@ margin: 0 1rem;
         grid-template-rows: repeat(3, minmax(0, 1fr));
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-}  
+
+    #add-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 24px 16px;
+}
+
+    #task-input {
+    width: 30%;
+    border: 1px solid #D6DDE7;
+    padding: 0.8rem;
+    border-radius: 0.7rem;
+    background-color: #EAECF3;
+    color: #27272A;
+    font-size: 14px;
+}
+
+#task-input:hover {
+    width: 30%;
+    border: 1px solid #4335FE;
+    padding: 0.8rem;
+    border-radius: 0.7rem;
+    background-color: #EEF2FE;
+    color: #27272A;
+    font-size: 14px;
+}
+
+}   
