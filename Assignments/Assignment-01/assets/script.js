@@ -15,8 +15,6 @@ listButton.addEventListener('click', () => {
     taskList.classList.remove('card-view-new');
     listButton.classList.add('active');
     cardButton.classList.remove('active');
-
-
 })
 
 
@@ -30,9 +28,6 @@ cardButton.addEventListener('click', () => {
 
     cardButton.classList.add('active');
     listButton.classList.remove('active');
-
-
-
 })
 
 addButton.addEventListener('click', () => {
