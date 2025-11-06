@@ -25,8 +25,8 @@ General concept is the pinboard where the user can pin some notes. About the fun
 2) Switching to card view: anonymous function. Description: when the card button is clicked, switch to card view. Returns nothing.
 
 
-3) Adding list element: anonymous function. Description: when the add button is clicked, takes text from the iputfield and adds a new task to the list. 
-if inputfield is empty - shows alert. Returns nothing.
+3) Adding list element: anonymous function. Description: when the add button is clicked, takes text from the input field and adds a new task to the list. 
+If input field is empty - shows alert. Returns nothing.
 
 
 4) Deleting a list element:  anonymous function. Description: when the delete button is clicked, removes the task from the list. Returns nothing.
