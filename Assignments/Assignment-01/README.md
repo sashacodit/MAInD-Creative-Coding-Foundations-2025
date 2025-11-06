@@ -29,7 +29,7 @@ General concept is the pinboard where the user can pin some notes. About the fun
 If input field is empty - shows alert. Returns nothing.
 
 
-4) Deleting a list element:  anonymous function. Description: when the delete button is clicked, removes the task from the list. Returns nothing.
+4) Deleting a list element: anonymous function. Description: when the delete button is clicked, removes the task from the list. Returns nothing.
 
 5) Edit list element: anonymous function. Description: when the edit button is clicked, lets user edit the text. Returns nothing.
 
