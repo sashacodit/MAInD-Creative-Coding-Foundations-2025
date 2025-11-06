@@ -300,6 +300,37 @@ section {
     left: -8px;
 }
 
+
+.edit-btn {
+    background: none;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
+
+.edit-btn:hover img {
+    content: url("imgs/Edit-Hover.svg");
+}
+
+.edit-btn:active img {
+    content: url("imgs/Edit-Pressed.svg");
+}
+
+.edit-btn::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+}
+
+
+
 .color-tooltip {
     position: absolute;
     bottom: 100%;

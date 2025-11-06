@@ -28,6 +28,7 @@ cardButton.addEventListener('click', () => {
 
     cardButton.classList.add('active');
     listButton.classList.remove('active');
+
 })
 
 addButton.addEventListener('click', () => {
@@ -41,15 +42,17 @@ addButton.addEventListener('click', () => {
     const listElement = document.createElement('li');
     listElement.className = 'list-element-container';
     listElement.innerHTML = `
-        <p>${inputValue}</p>
+        <p contenteditable="false">${inputValue}</p>
         <div class="icons-btn-container">
-                <button class="paint-btn">
-                    <img src="assets/imgs/Paint.svg" alt="Paint">
-                   
-                </button>
-                <button class="delete-btn">
-                    <img src="assets/imgs/Trashbin.svg" alt="small trashbin icon">
-                </button>
+            <button class="edit-btn">
+                <img src="assets/imgs/Edit.svg" alt="Edit">
+            </button>
+            <button class="paint-btn">
+                <img src="assets/imgs/Paint.svg" alt="Paint">
+            </button>
+            <button class="delete-btn">
+                <img src="assets/imgs/Trashbin.svg" alt="small trashbin icon">
+            </button>
         </div>
     `;
 
@@ -68,7 +71,7 @@ addButton.addEventListener('click', () => {
                     </div>`;
 
 
-    // Get the tooltip reference AFTER adding it to the DOM
+    
     const tooltip = paintButton.querySelector('.color-tooltip');
 
     paintButton.addEventListener('click', (e) => {
@@ -91,34 +94,53 @@ addButton.addEventListener('click', () => {
         });
     });
 
+    // Add edit button functionality
+    const editButton = listElement.querySelector('.edit-btn');
+    const contentElement = listElement.querySelector('p');
 
+    editButton.addEventListener('click', () => {
+        // Toggle contenteditable
+        const isEditing = contentElement.getAttribute('contenteditable') === 'true';
+        contentElement.setAttribute('contenteditable', !isEditing);
+        
+        // Toggle edit button state
+        editButton.classList.toggle('active');
+        
+        if (!isEditing) {
+            // Starting edit
+            contentElement.focus();
+            // Store original content in case we need to cancel
+            contentElement.dataset.originalContent = contentElement.textContent;
+        } else {
+            // Finishing edit
+            contentElement.blur();
+            // Remove stored original content
+            delete contentElement.dataset.originalContent;
+        }
+    });
+
+    // Handle blur event
+    contentElement.addEventListener('blur', () => {
+        if (contentElement.textContent.trim() === '') {
+            // If content is empty after editing, revert to original content
+            if (contentElement.dataset.originalContent) {
+                contentElement.textContent = contentElement.dataset.originalContent;
+            }
+        }
+        // Disable editing
+        contentElement.setAttribute('contenteditable', 'false');
+        editButton.classList.remove('active');
+    });
+
+    // Prevent enter key from creating new lines
+    contentElement.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            contentElement.blur();
+        }
+    });
 
     taskList.appendChild(listElement);
     taskInput.value = '';
 
 })
-
-// document.querySelectorAll('.paint-btn').forEach(btn => {
-//     const tooltip = btn.querySelector('.color-tooltip');
-    
-//     btn.addEventListener('click', (e) => {
-//         e.stopPropagation();
-//         tooltip.classList.toggle('show');
-//     });
-
-//     // Hide tooltip when clicking outside
-//     document.addEventListener('click', () => {
-//         tooltip.classList.remove('show');
-//     });
-
-//     // Handle color selection
-//     btn.querySelectorAll('.color-option').forEach(option => {
-//         option.addEventListener('click', (e) => {
-//             e.stopPropagation();
-//             const color = option.dataset.color;
-//             const listItem = btn.closest('.list-element-container');
-//             listItem.style.backgroundColor = color;
-//             tooltip.classList.remove('show');
-//         });
-//     });
-// });
