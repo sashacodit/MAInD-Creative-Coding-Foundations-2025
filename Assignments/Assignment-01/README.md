@@ -19,9 +19,22 @@ General concept is the pinboard where the user can pin some notes. About the fun
 
 ## Lista funzioni 
 
-1) Note adding: using the input field and putting a  text inside you can create a note by clickingon  the "+" button.
-2) Note deleting: if you don't need a note anymore or you made a mistake, you can easily delete it using  the "trashbin" button.
-3) Color change: for the user convenience he can customize notes changing it's color making such a categorization by himself. For example: all  blue notes - for study category, green - medicine etc.
-(by default every new note is adding in blue)
-4) Edit note: by clicking on the "edit" button you can rewrite a content inside the existing note.
-5) View switch: user can switch between 2 views and use the pinboard in the most comfortable way for him/her.
+1) Switching to list view: anonymous function. Description: when the list button is clicked, switch to list view. Returns nothing.
+
+
+2) Switching to card view: anonymous function. Description: when the card button is clicked, switch to card view. Returns nothing.
+
+
+3) Adding list element: anonymous function. Description: when the add button is clicked, takes text from the iputfield and adds a new task to the list. 
+if inputfield is empty - shows alert. Returns nothing.
+
+
+4) Deleting a list element:  anonymous function. Description: when the delete button is clicked, removes the task from the list. Returns nothing.
+
+5) Edit list element: anonymous function. Description: when the edit button is clicked, lets user edit the text. Returns nothing.
+
+
+6) Open recolor menu: anonymous function. Parameters: e - event object. Description: when the paint button is clicked, shows the color tooltip. Returns nothing.
+
+
+7) Choosing new color: anonymous function. Parameters: e - event object. Description: when a color option is clicked, changes the background color of the task. Returns nothing.

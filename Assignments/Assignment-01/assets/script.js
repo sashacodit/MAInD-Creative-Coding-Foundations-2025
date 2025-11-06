@@ -8,6 +8,7 @@ console.log(cardButton);
 const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list-container');
 
+// anonymous function. description: when the list button is clicked, switch to list view. Returns nothing.
 listButton.addEventListener('click', () => {
     console.log('List button pressed!');
 
@@ -17,7 +18,7 @@ listButton.addEventListener('click', () => {
     cardButton.classList.remove('active');
 })
 
-
+// anonymous function. description: when the card button is clicked, switch to card view. Returns nothing.
 cardButton.addEventListener('click', () => {
     console.log('Card button pressed!');
 
@@ -30,7 +31,8 @@ cardButton.addEventListener('click', () => {
     listButton.classList.remove('active');
 
 })
-
+// anonymous function. description: when the add button is clicked, takes text from the iputfield and adds a new task to the list. 
+// if inputfield is empty - shows alert  Returns nothing.
 addButton.addEventListener('click', () => {
     if (taskInput.value === '') {
         alert('Please enter a task before adding.');
@@ -58,6 +60,7 @@ addButton.addEventListener('click', () => {
 
 
     const deleteButton = listElement.querySelector('.delete-btn');
+    // anonymous function. description: when the delete button is clicked, removes the task from the list. returns nothing.
     deleteButton.addEventListener('click', () => {
         taskList.removeChild(listElement);
     });
@@ -73,7 +76,7 @@ addButton.addEventListener('click', () => {
 
     
     const tooltip = paintButton.querySelector('.color-tooltip');
-
+// anonymous function. Parameters: e - event object. Description: when the paint button is clicked, shows the color tooltip. returns nothing.
     paintButton.addEventListener('click', (e) => {
         e.stopPropagation();
         tooltip.classList.toggle('show');
@@ -84,8 +87,8 @@ addButton.addEventListener('click', () => {
         tooltip.classList.remove('show');
     });
 
-    // Handle color selection
     paintButton.querySelectorAll('.color-option').forEach(option => {
+        // anonymous function. Parameters: e - event object. Description: when a color option is clicked, changes the background color of the task. returns nothing.
         option.addEventListener('click', (e) => {
             e.stopPropagation();
             const color = option.dataset.color;
@@ -98,6 +101,7 @@ addButton.addEventListener('click', () => {
     const editButton = listElement.querySelector('.edit-btn');
     const contentElement = listElement.querySelector('p');
 
+//anonymous function. description: when the edit button is clicked, lets user edit the text. returns nothing.
     editButton.addEventListener('click', () => {
         // Toggle contenteditable
         const isEditing = contentElement.getAttribute('contenteditable') === 'true';
