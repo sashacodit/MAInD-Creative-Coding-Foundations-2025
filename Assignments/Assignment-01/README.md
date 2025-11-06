@@ -23,4 +23,5 @@ General concept is the pinboard where the user can pin some notes. About the fun
 2) Note deleting: if you don't need a note anymore or you made a mistake, you can easily delete it using  the "trashbin" button.
 3) Color change: for the user convenience he can customize notes changing it's color making such a categorization by himself. For example: all  blue notes - for study category, green - medicine etc.
 (by default every new note is adding in blue)
-4) View switch: user can switch between 2 views and use the pinboard in the most comfortable way for him/her.
+4) Edit note: by clicking on the "edit" button you can rewrite a content inside the existing note.
+5) View switch: user can switch between 2 views and use the pinboard in the most comfortable way for him/her.
