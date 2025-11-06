@@ -10,12 +10,12 @@ Starting from the concept of a pinboard, implement a web page that:
 - allows the switch between two views (at least)
 
 ## Screenshots
-![alt text](DOC/List-View-Desktop.png)
-![alt text](DOC/Card-View-Desktop.png)
+![alt text](DOC/List-View-New.png)
+![alt text](DOC/Card-View-New.png)
 
 ## Project description
 
-General concept is the pinboard where the user can pin some notes. About the functionality, user can add and delete notes, switch between 2 views, and customize note by changing it's color. Also there is a possibility to work on different devices because the page is responsive.
+General concept is the pinboard where the user can pin some notes. About the functionality, user can add and delete notes,edit them, switch between 2 views, and customize note by changing it's color. Also there is a possibility to work on different devices because the page is responsive.
 
 ## Lista funzioni 
 
