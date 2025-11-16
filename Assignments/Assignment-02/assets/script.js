@@ -5,6 +5,7 @@ let isGameOver = false;
 let revealedCellsCount = 0;
 
 const board = document.getElementById('board');
+board.style.display = 'none';
 const dialog = document.getElementById('dialog');
 
 document.getElementById('startGame').addEventListener('click', () => {
@@ -21,6 +22,7 @@ document.getElementById('dialogButton').addEventListener('click', () => {
 
 function startGame() {
     console.log(`Starting game with board size ${boardSize} and ${selectedAmountOfMines} mines.`);
+    board.style.display = 'grid';
     isGameOver = false;
     revealedCellsCount = 0;
     grid = [];
