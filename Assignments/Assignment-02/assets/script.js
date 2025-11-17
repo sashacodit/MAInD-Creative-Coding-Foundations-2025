@@ -5,6 +5,10 @@ let isGameOver = false;
 let revealedCellsCount = 0;
 
 const board = document.getElementById('board');
+const explosionSound = document.getElementById('gameOverSound');
+const flagSound = document.getElementById('flagSound');
+const winSound = document.getElementById('winSound');
+const startSound = document.getElementById('startSound');
 board.style.display = 'none';
 const dialog = document.getElementById('dialog');
 
@@ -23,6 +27,7 @@ document.getElementById('dialogButton').addEventListener('click', () => {
 function startGame() {
     console.log(`Starting game with board size ${boardSize} and ${selectedAmountOfMines} mines.`);
     board.style.display = 'grid';
+    startSound.play();
     isGameOver = false;
     revealedCellsCount = 0;
     grid = [];
@@ -55,6 +60,7 @@ function createBoard() {
             cell.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
                 toggleFlag(cellData);
+                 flagSound.play();
             });
 
             rowArr.push(cellData);
@@ -129,6 +135,7 @@ function revealCell(cellData) {
 
     if (cellData.isMine) {
         isGameOver = true;
+        explosionSound.play();
         revealAllMines();
         showdialog('Game Over! Do you want to play again?');
         return
@@ -191,7 +198,8 @@ function checkWinCondition() {
 
     if (revealedCellsCount === boardSize * boardSize - selectedAmountOfMines) {
         isGameOver = true;
-        showdialog('Congratulations! You Win! Do you want to play again?');
+        showdialog('Congratulations! You Won! Do you want to play again?');
+        winSound.play();
     }
 }
 
