@@ -10,6 +10,7 @@ const flagSound = document.getElementById('flagSound');
 const winSound = document.getElementById('winSound');
 const startSound = document.getElementById('startSound');
 board.style.display = 'none';
+
 const dialog = document.getElementById('dialog');
 
 document.getElementById('startGame').addEventListener('click', () => {
@@ -60,7 +61,7 @@ function createBoard() {
             cell.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
                 toggleFlag(cellData);
-                 flagSound.play();
+                flagSound.play();
             });
 
             rowArr.push(cellData);
@@ -140,11 +141,14 @@ function revealCell(cellData) {
         showdialog('Game Over! Do you want to play again?');
         return
     }
+    else {
+        cell.setAttribute('data-count', cellData.mineCount);
 
-    if (cellData.mineCount > 0) {
-        cell.textContent = cellData.mineCount;
-    } else {
-        revealNeighbors(cellData.row, cellData.col);
+        if (cellData.mineCount > 0) {
+            cell.textContent = cellData.mineCount;
+        } else {
+            revealNeighbors(cellData.row, cellData.col);
+        }
     }
 
     checkWinCondition();
@@ -186,13 +190,15 @@ function revealNeighbors(row, col) {
                     if (neighbor.mineCount === 0) {
                         revealNeighbors(newRow, newCol);
                     } else {
+                     //    cell.setAttribute('data-count', cellData.mineCount);
+                         neighbor.element.setAttribute('data-count', neighbor.mineCount);
                         neighbor.element.textContent = neighbor.mineCount;
                     }
                 }
             }
         }
     }
-}   
+}
 
 function checkWinCondition() {
 
