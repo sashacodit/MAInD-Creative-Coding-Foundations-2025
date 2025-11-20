@@ -23,7 +23,7 @@ Minesweeper is a game where mines are hidden in a grid of squares. Safe squares 
 
 ## Block diagram
 
-![Diagram](DOC/DOCS.png)
+![Diagram](DOC/Diagram.png)
 
 ## List of the functions
 
