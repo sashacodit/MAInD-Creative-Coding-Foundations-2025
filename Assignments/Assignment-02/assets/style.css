@@ -33,7 +33,7 @@ body {
   padding: 24px;
 }
 
-/* Control panel (top) */
+/* Control panel*/
 .control-panel {
   display: flex;
   gap: 12px;
@@ -161,7 +161,7 @@ button:active { transform: translateY(1px); }
 .cell.revealed[data-count="7"] { color: #111827; }
 .cell.revealed[data-count="8"] { color: #374151; }
 
-/* Dialog styling*/
+/* Dialog*/
 dialog {
   
   border: none;
@@ -172,11 +172,11 @@ dialog {
   box-shadow: 0 12px 40px rgba(15,23,42,0.08);
   min-width: 280px;
 }
+
 dialog::backdrop {
   background: rgba(0,0,0,0.3);
 }
 
-/* Dialog inner content */
 #dialogMessage {
   margin-bottom: 12px;
   font-size: 15px;
