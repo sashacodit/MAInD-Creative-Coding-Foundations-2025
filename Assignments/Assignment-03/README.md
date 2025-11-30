@@ -1,13 +1,13 @@
 ## Brief
 
-Choose a “mini-game” to rebuild with HTML, CSS and JavaScript. The requirements are:
+Upgrade the Assignment 02 by adding the use of data coming from an external web API. For example, fetch contents (audio, images, video, text, metadata) from online archives, AI generated contents (chatGPT API), data (weather, realtime traffic data, environmental data).
 
-- The webpage should be responsive
-- Choose an avatar at the beginning of the game
-- Keep track of the score of the player
-- Use the keyboard to control the game (indicate what are the controls in the page). You can also use buttons (mouse), but also keyboard.
-- Use some multimedia files (audio, video, …)
-- Implement an “automatic restart” in the game (that is not done via the refresh of the page)
+The application **must** have those requirements:
+
+- The webpage is responsive
+- Use a web API (you choose which one best fists for your project) to load the data and display them in the webpage
+- At least one multimedia file (for user feedback interactions, or content itself)
+- Develop a navigation system that allows the user to navigate different sections with related content and functionalities
 
 ## Screenshots
 
@@ -19,7 +19,7 @@ Choose a “mini-game” to rebuild with HTML, CSS and JavaScript. The requireme
 ![Screenshot 5 - Game Over](DOC/Screen%205.png)
 
 ## Project Description
-
+You can select game sprites from local files or by fetching from an API (https://developers.giphy.com/docs/api/). <br>
 Minesweeper is a game where mines are hidden in a grid of squares. Safe squares have numbers telling you how many mines touch the square. You can use the number clues to solve the game by opening all of the safe squares. If you click on a mine you lose the game!
 
 ## Block diagram
