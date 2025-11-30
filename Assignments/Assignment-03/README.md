@@ -22,8 +22,37 @@ Choose a “mini-game” to rebuild with HTML, CSS and JavaScript. The requireme
 Minesweeper is a game where mines are hidden in a grid of squares. Safe squares have numbers telling you how many mines touch the square. You can use the number clues to solve the game by opening all of the safe squares. If you click on a mine you lose the game!
 
 ## Block diagram
+```mermaid
+graph TD
+    Start((Start)) --> ChooseSprites[Choose Your Sprites]
+    ChooseSprites --> SelectSource{Select Sprite Source?}
+    SelectSource -->|Local| LocalSprites[Local Sprites Selected]
+    SelectSource -->|API Gifs| GiphySprites[GIPHY Images Selected]
+    LocalSprites --> LoadLocal[Load Local Sprites]
+    GiphySprites --> FetchGiphy[Fetch GIPHY Images]
+    FetchGiphy --> DisplayGiphy[Display GIPHY Images]
+    LoadLocal --> GridCreated[Grid is created]
+    DisplayGiphy --> GridCreated
 
-![Diagram](DOC/Diagram.png)
+    GridCreated --> LeftClick[Left click on cell]
+    GridCreated --> RightClick[Right click on cell]
+
+    LeftClick --> ClickedMine{Clicked on the mine?}
+    ClickedMine -->|Yes| GameOver(Game Over)
+    ClickedMine -->|No| MarkRevealed[Mark cell as revealed]
+
+    RightClick --> PlaceFlag[Place flag]
+
+    MarkRevealed --> MinesAround{Are there mines around?}
+    MinesAround -->|Yes| ShowNearbyMines[Show number of nearby mines]
+    ShowNearbyMines --> EmptyCells{Are there empty cells?}
+    MinesAround -->|No| EmptyCells
+
+    EmptyCells -->|Yes| CheckNearby[Check nearby cells]
+    CheckNearby --> MarkRevealed
+    EmptyCells -->|No| YouWon(You Won)
+```
+
 
 ## List of the functions
 
