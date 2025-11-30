@@ -66,10 +66,11 @@ async function fetchGiphyImages(query, limit = 10) {
         }
 
         const data = await response.json();
+
+        console.log(data);
         return data.data.map(gif => ({
             url: gif.images.fixed_height.url,
-            id: gif.id,
-            title: gif.title
+            title: gif.title // for alt text if image not loaded
         }));
     } catch (error) {
         console.error('Error fetching GIPHY images:', error);
