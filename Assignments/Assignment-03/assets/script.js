@@ -8,6 +8,11 @@ let score = 0;
 let highScore = 0;
 let selectedBombSprite = 'Bomb.svg';
 let selectedFlagSprite = 'Flag.svg';
+let selectedBombSpriteType = 'local'; // 'local' or 'giphy'
+let selectedFlagSpriteType = 'local'; // 'local' or 'giphy'
+let currentSpriteSource = 'local'; // 'local' or 'giphy'
+let giphyBombImages = [];
+let giphyFlagImages = [];
 
 const board = document.getElementById('board');
 const scoreValueElement = document.getElementById('scoreValue');
@@ -38,56 +43,180 @@ document.getElementById('dialogButton').addEventListener('click', () => {
 // Sprite selection dialog handlers
 let selectedBombOption = null;
 let selectedFlagOption = null;
+let selectedBombOptionType = 'local';
+let selectedFlagOptionType = 'local';
 let spriteSelectionInitialized = false;
+let toggleButtonsInitialized = false;
 
-function initializeSpriteSelection() {
-    const bombOptions = document.querySelectorAll('.sprite-group:first-child .sprite-option');
-    const flagOptions = document.querySelectorAll('.sprite-group:last-child .sprite-option');
+// GIPHY API functions
+async function fetchGiphyImages(query, limit = 10) {
+    try {
+        const apiKey = typeof APIKEY !== 'undefined' ? APIKEY : '';
+        if (!apiKey) {
+            console.error('GIPHY API key not found');
+            return [];
+        }
 
-    // Only add event listeners once
-    if (!spriteSelectionInitialized) {
-        bombOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                bombOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                selectedBombOption = option.dataset.sprite;
-            });
+        const response = await fetch(
+            `https://api.giphy.com/v1/stickers/search?api_key=${apiKey}&q=${encodeURIComponent(query)}&limit=${limit}&rating=g&lang=en`
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.data.map(gif => ({
+            url: gif.images.fixed_height.url,
+            id: gif.id,
+            title: gif.title
+        }));
+    } catch (error) {
+        console.error('Error fetching GIPHY images:', error);
+        return [];
+    }
+}
+
+async function loadGiphyImages() {
+    const bombOptions = document.getElementById('bombOptions');
+    const flagOptions = document.getElementById('flagOptions');
+    const bombLoading = document.getElementById('bombLoading');
+    const flagLoading = document.getElementById('flagLoading');
+    const bombError = document.getElementById('bombError');
+    const flagError = document.getElementById('flagError');
+
+    // Show loading states
+    bombLoading.style.display = 'flex';
+    flagLoading.style.display = 'flex';
+    bombError.style.display = 'none';
+    flagError.style.display = 'none';
+    bombOptions.innerHTML = '';
+    flagOptions.innerHTML = '';
+
+    // Fetch images in parallel
+    const [bombImages, flagImages] = await Promise.all([
+        fetchGiphyImages('bomb ', 10),
+        fetchGiphyImages('flag surrender', 10)
+    ]);
+
+    // Hide loading states
+    bombLoading.style.display = 'none';
+    flagLoading.style.display = 'none';
+
+    // Add class for GIPHY sprites (scrollable)
+    bombOptions.classList.add('giphy-sprites');
+    flagOptions.classList.add('giphy-sprites');
+    bombOptions.classList.remove('local-sprites');
+    flagOptions.classList.remove('local-sprites');
+
+    // Handle bomb images
+    if (bombImages.length > 0) {
+        giphyBombImages = bombImages;
+        bombImages.forEach((img, index) => {
+            const option = document.createElement('div');
+            option.className = 'sprite-option';
+            option.dataset.sprite = img.url;
+            option.dataset.type = 'giphy';
+            option.dataset.index = index;
+            option.innerHTML = `<img src="${img.url}" alt="${img.title || 'Bomb ' + (index + 1)}" loading="lazy">`;
+            bombOptions.appendChild(option);
         });
-
-        flagOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                flagOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                selectedFlagOption = option.dataset.sprite;
-            });
-        });
-        spriteSelectionInitialized = true;
+    } else {
+        bombError.style.display = 'block';
     }
 
+    // Handle flag images
+    if (flagImages.length > 0) {
+        giphyFlagImages = flagImages;
+        flagImages.forEach((img, index) => {
+            const option = document.createElement('div');
+            option.className = 'sprite-option';
+            option.dataset.sprite = img.url;
+            option.dataset.type = 'giphy';
+            option.dataset.index = index;
+            option.innerHTML = `<img src="${img.url}" alt="${img.title || 'Flag ' + (index + 1)}" loading="lazy">`;
+            flagOptions.appendChild(option);
+        });
+    } else {
+        flagError.style.display = 'block';
+    }
+
+    // Re-initialize sprite selection to attach event listeners
+    initializeSpriteSelection();
+}
+
+function initializeSpriteSelection() {
+    const bombOptions = document.querySelectorAll('#bombOptions .sprite-option');
+    const flagOptions = document.querySelectorAll('#flagOptions .sprite-option');
+
+    // Remove old event listeners by cloning and replacing
+    bombOptions.forEach(option => {
+        const newOption = option.cloneNode(true);
+        option.parentNode.replaceChild(newOption, option);
+    });
+
+    flagOptions.forEach(option => {
+        const newOption = option.cloneNode(true);
+        option.parentNode.replaceChild(newOption, option);
+    });
+
+    // Get fresh references after cloning
+    const freshBombOptions = document.querySelectorAll('#bombOptions .sprite-option');
+    const freshFlagOptions = document.querySelectorAll('#flagOptions .sprite-option');
+
+    // Add event listeners
+    freshBombOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            freshBombOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            selectedBombOption = option.dataset.sprite;
+            selectedBombOptionType = option.dataset.type || 'local';
+        });
+    });
+
+    freshFlagOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            freshFlagOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            selectedFlagOption = option.dataset.sprite;
+            selectedFlagOptionType = option.dataset.type || 'local';
+        });
+    });
+
     // Clear all selections first
-    bombOptions.forEach(opt => opt.classList.remove('selected'));
-    flagOptions.forEach(opt => opt.classList.remove('selected'));
+    freshBombOptions.forEach(opt => opt.classList.remove('selected'));
+    freshFlagOptions.forEach(opt => opt.classList.remove('selected'));
 
     // Set selections based on previously chosen sprites, or default to first
-    if (bombOptions.length > 0) {
-        const matchingBomb = Array.from(bombOptions).find(opt => opt.dataset.sprite === selectedBombSprite);
+    if (freshBombOptions.length > 0) {
+        const matchingBomb = Array.from(freshBombOptions).find(opt => 
+            opt.dataset.sprite === selectedBombSprite && 
+            (opt.dataset.type || 'local') === selectedBombSpriteType
+        );
         if (matchingBomb) {
             matchingBomb.classList.add('selected');
             selectedBombOption = matchingBomb.dataset.sprite;
+            selectedBombOptionType = matchingBomb.dataset.type || 'local';
         } else {
-            bombOptions[0].classList.add('selected');
-            selectedBombOption = bombOptions[0].dataset.sprite;
+            freshBombOptions[0].classList.add('selected');
+            selectedBombOption = freshBombOptions[0].dataset.sprite;
+            selectedBombOptionType = freshBombOptions[0].dataset.type || 'local';
         }
     }
     
-    if (flagOptions.length > 0) {
-        const matchingFlag = Array.from(flagOptions).find(opt => opt.dataset.sprite === selectedFlagSprite);
+    if (freshFlagOptions.length > 0) {
+        const matchingFlag = Array.from(freshFlagOptions).find(opt => 
+            opt.dataset.sprite === selectedFlagSprite && 
+            (opt.dataset.type || 'local') === selectedFlagSpriteType
+        );
         if (matchingFlag) {
             matchingFlag.classList.add('selected');
             selectedFlagOption = matchingFlag.dataset.sprite;
+            selectedFlagOptionType = matchingFlag.dataset.type || 'local';
         } else {
-            flagOptions[0].classList.add('selected');
-            selectedFlagOption = flagOptions[0].dataset.sprite;
+            freshFlagOptions[0].classList.add('selected');
+            selectedFlagOption = freshFlagOptions[0].dataset.sprite;
+            selectedFlagOptionType = freshFlagOptions[0].dataset.type || 'local';
         }
     }
 }
@@ -95,17 +224,150 @@ function initializeSpriteSelection() {
 document.getElementById('confirmSprites').addEventListener('click', () => {
     if (selectedBombOption) {
         selectedBombSprite = selectedBombOption;
+        selectedBombSpriteType = selectedBombOptionType;
     }
     if (selectedFlagOption) {
         selectedFlagSprite = selectedFlagOption;
+        selectedFlagSpriteType = selectedFlagOptionType;
     }
     spriteSelectionDialog.close();
     startGame();
 });
 
 function showSpriteSelectionDialog() {
-    initializeSpriteSelection();
+    // Initialize toggle buttons
+    const toggleLocal = document.getElementById('toggleLocal');
+    const toggleGiphy = document.getElementById('toggleGiphy');
+    
+    // Initialize toggle button listeners only once
+    if (!toggleButtonsInitialized) {
+        toggleLocal.addEventListener('click', () => {
+            currentSpriteSource = 'local';
+            toggleLocal.classList.add('active');
+            toggleGiphy.classList.remove('active');
+            showLocalSprites();
+        });
+
+        toggleGiphy.addEventListener('click', () => {
+            currentSpriteSource = 'giphy';
+            toggleGiphy.classList.add('active');
+            toggleLocal.classList.remove('active');
+            showGiphySprites();
+        });
+        toggleButtonsInitialized = true;
+    }
+    
+    // Set initial state
+    if (currentSpriteSource === 'local') {
+        toggleLocal.classList.add('active');
+        toggleGiphy.classList.remove('active');
+        showLocalSprites();
+    } else {
+        toggleGiphy.classList.add('active');
+        toggleLocal.classList.remove('active');
+        showGiphySprites();
+    }
+
     spriteSelectionDialog.showModal();
+}
+
+function showLocalSprites() {
+    const bombOptions = document.getElementById('bombOptions');
+    const flagOptions = document.getElementById('flagOptions');
+    const bombLoading = document.getElementById('bombLoading');
+    const flagLoading = document.getElementById('flagLoading');
+    const bombError = document.getElementById('bombError');
+    const flagError = document.getElementById('flagError');
+
+    // Hide loading and error states
+    bombLoading.style.display = 'none';
+    flagLoading.style.display = 'none';
+    bombError.style.display = 'none';
+    flagError.style.display = 'none';
+
+    // Add class to center local sprites
+    bombOptions.classList.add('local-sprites');
+    flagOptions.classList.add('local-sprites');
+    bombOptions.classList.remove('giphy-sprites');
+    flagOptions.classList.remove('giphy-sprites');
+
+    // Show local sprites
+    bombOptions.innerHTML = `
+        <div class="sprite-option" data-sprite="Bomb.svg" data-type="local">
+            <img src="assets/img/Bomb.svg" alt="Bomb 1">
+        </div>
+        <div class="sprite-option" data-sprite="Bomb2.svg" data-type="local">
+            <img src="assets/img/Bomb2.svg" alt="Bomb 2">
+        </div>
+        <div class="sprite-option" data-sprite="Bomb3.svg" data-type="local">
+            <img src="assets/img/Bomb3.svg" alt="Bomb 3">
+        </div>
+    `;
+
+    flagOptions.innerHTML = `
+        <div class="sprite-option" data-sprite="Flag.svg" data-type="local">
+            <img src="assets/img/Flag.svg" alt="Flag 1">
+        </div>
+        <div class="sprite-option" data-sprite="Flag2.svg" data-type="local">
+            <img src="assets/img/Flag2.svg" alt="Flag 2">
+        </div>
+        <div class="sprite-option" data-sprite="Flag3.svg" data-type="local">
+            <img src="assets/img/Flag3.svg" alt="Flag 3">
+        </div>
+    `;
+
+    initializeSpriteSelection();
+}
+
+function showGiphySprites() {
+    // Load GIPHY images if not already loaded
+    if (giphyBombImages.length === 0 || giphyFlagImages.length === 0) {
+        loadGiphyImages();
+    } else {
+        // Re-render existing GIPHY images
+        const bombOptions = document.getElementById('bombOptions');
+        const flagOptions = document.getElementById('flagOptions');
+        const bombLoading = document.getElementById('bombLoading');
+        const flagLoading = document.getElementById('flagLoading');
+        const bombError = document.getElementById('bombError');
+        const flagError = document.getElementById('flagError');
+
+        bombLoading.style.display = 'none';
+        flagLoading.style.display = 'none';
+        bombError.style.display = 'none';
+        flagError.style.display = 'none';
+
+        // Add class for GIPHY sprites (scrollable)
+        bombOptions.classList.add('giphy-sprites');
+        flagOptions.classList.add('giphy-sprites');
+        bombOptions.classList.remove('local-sprites');
+        flagOptions.classList.remove('local-sprites');
+
+        bombOptions.innerHTML = '';
+        flagOptions.innerHTML = '';
+
+        giphyBombImages.forEach((img, index) => {
+            const option = document.createElement('div');
+            option.className = 'sprite-option';
+            option.dataset.sprite = img.url;
+            option.dataset.type = 'giphy';
+            option.dataset.index = index;
+            option.innerHTML = `<img src="${img.url}" alt="${img.title || 'Bomb ' + (index + 1)}" loading="lazy">`;
+            bombOptions.appendChild(option);
+        });
+
+        giphyFlagImages.forEach((img, index) => {
+            const option = document.createElement('div');
+            option.className = 'sprite-option';
+            option.dataset.sprite = img.url;
+            option.dataset.type = 'giphy';
+            option.dataset.index = index;
+            option.innerHTML = `<img src="${img.url}" alt="${img.title || 'Flag ' + (index + 1)}" loading="lazy">`;
+            flagOptions.appendChild(option);
+        });
+
+        initializeSpriteSelection();
+    }
 }
 
 function startGame() {
@@ -257,7 +519,13 @@ function revealAllMines() {
             if (cellData.isMine) {
                 cellData.element.classList.add('revealed');
                 cellData.element.classList.add('mine');
-                cellData.element.style.backgroundImage = `url('assets/img/${selectedBombSprite}')`;
+                let bombImageUrl;
+                if (selectedBombSpriteType === 'giphy') {
+                    bombImageUrl = selectedBombSprite;
+                } else {
+                    bombImageUrl = `assets/img/${selectedBombSprite}`;
+                }
+                cellData.element.style.backgroundImage = `url('${bombImageUrl}')`;
             }
         }
     }
@@ -344,7 +612,13 @@ function toggleFlag(cellData) {
     cellData.element.classList.toggle('flagged');
     
     if (cellData.isFlagged) {
-        cellData.element.style.backgroundImage = `url('assets/img/${selectedFlagSprite}')`;
+        let flagImageUrl;
+        if(selectedFlagSpriteType === 'giphy') {
+            flagImageUrl = selectedFlagSprite;
+        } else {
+            flagImageUrl = `assets/img/${selectedFlagSprite}`;
+        }
+        cellData.element.style.backgroundImage = `url('${flagImageUrl}')`;
     } else {
         cellData.element.style.backgroundImage = '';
     }

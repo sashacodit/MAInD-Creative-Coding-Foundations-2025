@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style.css" />
+    <script src="assets/APIKEy/apikey.js"></script>
     <script src="assets/script.js" defer></script>
     <title>Minesweeper</title>
 </head>
@@ -38,33 +39,51 @@
     <dialog id="spriteSelectionDialog">
         <div class="sprite-dialog-content">
             <h2>Choose Your Sprites</h2>
+            <div class="sprite-source-toggle">
+                <button class="toggle-btn active" data-source="local" id="toggleLocal">Local Sprites</button>
+                <button class="toggle-btn" data-source="giphy" id="toggleGiphy">GIPHY Images</button>
+            </div>
             <div class="sprite-selection">
-                <div class="sprite-group">
+                <div class="sprite-group" id="bombGroup">
                     <h3>Bomb</h3>
-                    <div class="sprite-options">
-                        <div class="sprite-option" data-sprite="Bomb.svg">
+                    <div class="sprite-options" id="bombOptions">
+                        <div class="sprite-option" data-sprite="Bomb.svg" data-type="local">
                             <img src="assets/img/Bomb.svg" alt="Bomb 1">
                         </div>
-                        <div class="sprite-option" data-sprite="Bomb2.svg">
+                        <div class="sprite-option" data-sprite="Bomb2.svg" data-type="local">
                             <img src="assets/img/Bomb2.svg" alt="Bomb 2">
                         </div>
-                        <div class="sprite-option" data-sprite="Bomb3.svg">
+                        <div class="sprite-option" data-sprite="Bomb3.svg" data-type="local">
                             <img src="assets/img/Bomb3.svg" alt="Bomb 3">
                         </div>
                     </div>
+                    <div class="loading-state" id="bombLoading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Loading GIPHY images...</p>
+                    </div>
+                    <div class="error-state" id="bombError" style="display: none;">
+                        <p>Failed to load images. Please try again.</p>
+                    </div>
                 </div>
-                <div class="sprite-group">
+                <div class="sprite-group" id="flagGroup">
                     <h3>Flag</h3>
-                    <div class="sprite-options">
-                        <div class="sprite-option" data-sprite="Flag.svg">
+                    <div class="sprite-options" id="flagOptions">
+                        <div class="sprite-option" data-sprite="Flag.svg" data-type="local">
                             <img src="assets/img/Flag.svg" alt="Flag 1">
                         </div>
-                        <div class="sprite-option" data-sprite="Flag2.svg">
+                        <div class="sprite-option" data-sprite="Flag2.svg" data-type="local">
                             <img src="assets/img/Flag2.svg" alt="Flag 2">
                         </div>
-                        <div class="sprite-option" data-sprite="Flag3.svg">
+                        <div class="sprite-option" data-sprite="Flag3.svg" data-type="local">
                             <img src="assets/img/Flag3.svg" alt="Flag 3">
                         </div>
+                    </div>
+                    <div class="loading-state" id="flagLoading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Loading GIPHY images...</p>
+                    </div>
+                    <div class="error-state" id="flagError" style="display: none;">
+                        <p>Failed to load images. Please try again.</p>
                     </div>
                 </div>
             </div>
