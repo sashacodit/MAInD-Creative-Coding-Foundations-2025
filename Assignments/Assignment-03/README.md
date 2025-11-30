@@ -12,7 +12,8 @@ Choose a “mini-game” to rebuild with HTML, CSS and JavaScript. The requireme
 ## Screenshots
 
 ![Screenshot 1 - Start](DOC/Screen%201.png)
-![Screenshot 2 - Choose](DOC/Screen%202.png)
+![Screenshot 2 - Choose](DOC/SelectSpriteMenu.png)
+![Screenshot - select api](DOC/APISelectIMAGE.png)
 ![Screenshot 3 - Board](DOC/Screen%203.png)
 ![Screenshot 4 - Game in progress](DOC/Screen%204.png)
 ![Screenshot 5 - Game Over](DOC/Screen%205.png)
