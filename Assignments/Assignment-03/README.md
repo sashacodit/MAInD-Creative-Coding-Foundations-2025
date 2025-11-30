@@ -29,7 +29,7 @@ Minesweeper is a game where mines are hidden in a grid of squares. Safe squares 
 
 **1) initializeSpriteSelection()**: Description: Initializes the sprite selection dialog by setting up event listeners for bomb and flag sprite options, clears all previous selections, and highlights the previously selected sprites (or defaults to the first option). Returns nothing.
 
-**2) showSpriteSelectionDialog()**: Description: Displays the sprite selection dialog modal to allow the player to choose bomb and flag sprites before starting the game. Returns nothing.
+**2) showSpriteSelectionDialog()**: Description: Displays the sprite selection dialog modal to allow the player to choose bomb and flag sprites before starting the game. Initializes toggle buttons for switching between local sprites and GIPHY images, sets the initial state based on the current source, and shows the appropriate sprite options. Returns nothing.
 
 **3) startGame()**: Description: Resets and initializes a new game session by clearing the board, resetting game state variables (score, revealed cells count, game over status), creating a new board grid, placing mines randomly, calculating neighbor mine counts, and setting focus on the first cell. Returns nothing.
 
@@ -56,3 +56,11 @@ Minesweeper is a game where mines are hidden in a grid of squares. Safe squares 
 **14) toggleFlag(cellData)**: Param - cellData: object containing cell information. Description: Toggles the flag state of a cell (places or removes a flag) by updating the cell's flagged status, toggling CSS classes, and applying or removing the selected flag sprite image. Returns nothing.
 
 **15) updateFocus(cellData)**: Param - cellData: object containing cell information. Description: Updates the visual keyboard focus indicator by removing focus from the previously focused cell and adding a blue border to the newly focused cell. Returns nothing.
+
+**16) fetchGiphyImages(query, limit = 10)**: Param - query: search term for GIPHY API, limit: maximum number of images to fetch (default 10). Description: Fetches sticker images from the GIPHY API based on the search query, handles API errors, and returns an array of image objects containing URL and title properties. Returns array of image objects with url and title properties, or empty array on error.
+
+**17) loadGiphyImages()**: Description: Asynchronously loads GIPHY images for both bomb and flag sprites by fetching images in parallel, displays loading states, handles errors, creates sprite option elements for each image, and applies scrollable styling. Caches the fetched images for reuse. Returns nothing.
+
+**18) showLocalSprites()**: Description: Displays the local sprite options (3 bomb and 3 flag sprites) by clearing GIPHY images, hiding loading/error states, applying centered styling for local sprites, and re-initializing sprite selection event listeners. Returns nothing.
+
+**19) showGiphySprites()**: Description: Displays GIPHY sprite options by either loading new images from the API (if not cached) or re-rendering previously cached images. Applies scrollable styling for GIPHY sprites and re-initializes sprite selection. Returns nothing.
