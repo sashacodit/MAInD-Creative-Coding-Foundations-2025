@@ -19,7 +19,7 @@ The application **must** have those requirements:
 ![Screenshot 5 - Game Over](DOC/Screen%205.png)
 
 ## Project Description
-You can select game sprites from local files or by fetching from an API (https://developers.giphy.com/docs/api/). <br>
+
 Minesweeper is a game where mines are hidden in a grid of squares. Safe squares have numbers telling you how many mines touch the square. You can use the number clues to solve the game by opening all of the safe squares. If you click on a mine you lose the game!
 
 ## Block diagram
@@ -94,3 +94,16 @@ graph TD
 **18) showLocalSprites()**: Description: Displays the local sprite options (3 bomb and 3 flag sprites) by clearing GIPHY images, hiding loading/error states, applying centered styling for local sprites, and re-initializing sprite selection event listeners. Returns nothing.
 
 **19) showGiphySprites()**: Description: Displays GIPHY sprite options by either loading new images from the API (if not cached) or re-rendering previously cached images. Applies scrollable styling for GIPHY sprites and re-initializes sprite selection. Returns nothing.
+
+
+## Content and data sources
+
+Images for local sprites were taken from iconScout.
+https://iconscout.com/icons?gad_campaignid=16899648377&gad_source=1&gbraid=0AAAAABZ_80S49Lrv61q9GgOo4oQGYAHkQ&gclid=Cj0KCQiAubrJBhCbARIsAHIdxD85lQld6c-l5M-DaWvFybyg9eHjJr4bk6pEckewIXPMpJ3ech9cvoUaArMzEALw_wcB
+
+Sounds were taken from ZvukiPro.com.
+https://zvukipro.com/games/2685-zvuki-iz-igry-saper.html
+
+
+## API documentation
+You can select game sprites from local files or by fetching from an API (https://developers.giphy.com/docs/api/). 
