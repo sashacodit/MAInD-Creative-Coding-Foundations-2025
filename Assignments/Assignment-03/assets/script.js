@@ -49,9 +49,20 @@ let spriteSelectionInitialized = false;
 let toggleButtonsInitialized = false;
 
 // GIPHY API functions
+
+// Fetch GIPHY images based on query
+// returns array of objects with url and title
 async function fetchGiphyImages(query, limit = 10) {
     try {
-        const apiKey = typeof APIKEY !== 'undefined' ? APIKEY : '';
+        let apiKey = null; 
+
+        if(typeof APIKEY !== 'undefined'){
+            apiKey = APIKEY;
+        }
+        else{
+            apiKey = "";
+        }
+
         if (!apiKey) {
             console.error('GIPHY API key not found');
             return [];
@@ -68,16 +79,17 @@ async function fetchGiphyImages(query, limit = 10) {
         const data = await response.json();
 
         console.log(data);
-        return data.data.map(gif => ({
+        return data.data.map(gif => ({ // returns array of objects with url and title
             url: gif.images.fixed_height.url,
             title: gif.title // for alt text if image not loaded
-        }));
+        })); 
     } catch (error) {
         console.error('Error fetching GIPHY images:', error);
         return [];
     }
 }
 
+// 
 async function loadGiphyImages() {
     const bombOptions = document.getElementById('bombOptions');
     const flagOptions = document.getElementById('flagOptions');
@@ -94,7 +106,7 @@ async function loadGiphyImages() {
     bombOptions.innerHTML = '';
     flagOptions.innerHTML = '';
 
-    // Fetch images in parallel
+    // Fetch images in parallel API USE 
     const [bombImages, flagImages] = await Promise.all([
         fetchGiphyImages('bomb ', 10),
         fetchGiphyImages('flag surrender', 10)
@@ -146,6 +158,9 @@ async function loadGiphyImages() {
     initializeSpriteSelection();
 }
 
+// Prepares sprite selection dialog to be shown. 
+// Makes current selected sprites shown as selected in the dialog.
+// If no sprites were previously selected, defaults to first option in each category.
 function initializeSpriteSelection() {
     const bombOptions = document.querySelectorAll('#bombOptions .sprite-option');
     const flagOptions = document.querySelectorAll('#flagOptions .sprite-option');
@@ -410,9 +425,13 @@ function createBoard() {
                 isFlagged: false
             }
 
-            cell.addEventListener('click', () => revealCell(cellData));
+            cell.addEventListener('click', () => {
+                clearFocus();
+                revealCell(cellData);
+            });
             cell.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
+                clearFocus();
                 toggleFlag(cellData);
                 flagSound.play();
             });
@@ -470,7 +489,10 @@ function calculateNeighbors() {
 
 }
 
-
+// Reveal cell logic
+// if steps on the mine - game over 
+// if no mine - add score, reveal itself and neighbors recursively
+// checks win condition
 function revealCell(cellData) {
     if (isGameOver || cellData.isRevealed) {
         return;
@@ -531,6 +553,7 @@ function revealAllMines() {
         }
     }
 }
+
 
 function revealNeighbors(row, col) {
     for (let r = -1; r <= 1; r++) {
@@ -627,7 +650,14 @@ function toggleFlag(cellData) {
 
 // Keyboard navigation
 document.addEventListener('keydown', (event) => {
-    if (isGameOver || !focusedCell) return;
+    if (isGameOver) return;
+    
+    // If focus was cleared by mouse click, restore it to first cell
+    if (!focusedCell && grid.length > 0 && grid[0].length > 0) {
+        updateFocus(grid[0][0]);
+    }
+    
+    if (!focusedCell) return;
 
     const row = focusedCell.row;
     const col = focusedCell.col;
@@ -663,6 +693,14 @@ document.addEventListener('keydown', (event) => {
         updateFocus(grid[newRow][newCol]);
     }
 });
+
+// Clear visual focus
+function clearFocus() {
+    if (focusedCell) {
+        focusedCell.element.style.boxShadow = 'none';
+        focusedCell = null;
+    }
+}
 
 // Update visual focus and track focused cell
 function updateFocus(cellData) {
